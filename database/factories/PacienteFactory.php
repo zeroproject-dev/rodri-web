@@ -25,6 +25,7 @@ class PacienteFactory extends Factory
             'numero' => $this->faker->numberBetween(60000000, 79999999),
             'correo' => $this->faker->unique()->safeEmail(),
             'estado' => $this->faker->boolean(),
+            'user_id' => 1,
         ];
     }
 }

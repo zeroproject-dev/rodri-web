@@ -17,6 +17,25 @@ return new class () extends Migration {
             $table->date(column: 'fecha_nacimiento')->nullable(true);
             $table->string(column: 'numero', length: 15)->nullable(true);
             $table->boolean(column: 'estado')->default(true);
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
+        });
+
+        Schema::create('sesiones', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('paciente_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->date(column: 'fecha')->nullable(false);
+            $table->string(column: 'tipo')->nullable(true);
+            $table->text(column: 'notas')->nullable(true);
+            $table->timestamps();
+        });
+
+        Schema::create('estadisticas', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('sesion_id')->constrained('sesiones', 'id')->cascadeOnDelete();
+            $table->string('nombre');
+            $table->json('valor')->nullable(true);
             $table->timestamps();
         });
     }
@@ -24,5 +43,7 @@ return new class () extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('pacientes');
+        Schema::dropIfExists('sesiones');
+        Schema::dropIfExists('estadisticas');
     }
 };
