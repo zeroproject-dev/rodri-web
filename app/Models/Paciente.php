@@ -33,4 +33,9 @@ class Paciente extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function sesiones()
+    {
+        return $this->hasMany(Sesiones::class);
+    }
 }

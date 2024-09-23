@@ -1,0 +1,7 @@
+services:
+  rodri:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: rodri
+    container_name: rodri-web

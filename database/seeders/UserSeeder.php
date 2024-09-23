@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
             "segundo_nombre" => "Admin",
             "paterno" => "Admin",
             "materno" => "Admin",
-            "espacialidad" => "Admin",
+            "especialidad" => "Esp",
             "fecha_nacimiento" => "2021-10-01",
             "genero" => "masculino",
             "numero" => "123456789",

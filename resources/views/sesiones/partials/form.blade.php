@@ -4,59 +4,33 @@
 
     <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div>
-            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Primer
-                nombre</label>
-            <input type="text" id="first_name" name="primer_nombre"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Nombre" value="{{ old('primer_nombre', $sesion->primer_nombre) }}" />
-            @error('primer_nombre')
+            <label for="pacientes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecciona el
+                paciente</label>
+            <select id="pacientes" name="paciente_id"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Selecciona un paciente</option>
+                @foreach ($pacientes as $item)
+                    <option value="{{ $item->id }}">
+                        {{ $item->primer_nombre . ' ' . $item->segundo_nombre . ' ' . $item->paterno . ' ' . $item->materno }}
+                    </option>
+                @endforeach
+            </select>
+            @error('paciente_id')
                 <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
         <div>
-            <label for="second_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Segundo
-                nombre</label>
-            <input type="text" id="second_name" name="segundo_nombre"
+            <label for="tipo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo</label>
+            <input type="text" id="second_name" name="tipo"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Nombre" value="{{ old('segundo_nombre', $sesion->segundo_nombre) }}" />
-            @error('segundo_nombre')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
-        </div>
-        <div>
-            <label for="first_surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido
-                paterno</label>
-            <input type="text" id="first_surname" name="paterno"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Paterno" value="{{ old('paterno', $sesion->paterno) }}" />
-            @error('paterno')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
-        </div>
-        <div>
-            <label for="second_surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido
-                materno</label>
-            <input type="text" id="second_surname" name="materno"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Materno" value="{{ old('materno', $sesion->materno) }}" />
-            @error('materno')
+                placeholder="Nombre" value="{{ old('tipo', $sesion->tipo) }}" />
+            @error('tipo')
                 <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
 
         <div>
-            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Teléfono</label>
-            <input type="tel" id="phone" name="numero"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="60294819" value="{{ old('numero', $sesion->numero) }}" />
-            @error('telefono')
-                <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <div>
-            <label for="birthdate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de
-                nacimiento</label>
+            <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha</label>
             <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -66,23 +40,21 @@
                     </svg>
                 </div>
                 <input id="birthdate" datepicker datepicker-autohide datepicker-format="dd/mm/yyyy" type="text"
-                    name="fecha_nacimiento"
+                    name="fecha"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    value="{{ old('fecha_nacimiento', $sesion->fecha_nacimiento->format('d/m/Y')) }}"
-                    placeholder="Fecha de nacimiento">
+                    placeholder="Fecha">
             </div>
-            @error('fecha_nacimiento')
+            @error('fecha')
                 <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
     </div>
     <div class="mb-6">
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo
-            electrónico</label>
-        <input type="email" id="email" name="correo"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            value="{{ old('correo', $sesion->correo) }}" placeholder="nombre@ejemplo.com" />
-        @error('correo')
+        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notas</label>
+        <textarea id="message" rows="4" name="notas"
+            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Escribe tus notas aqui..."></textarea>
+        @error('notas')
             <span class="text-red-500 text-sm">{{ $message }}</span>
         @enderror
     </div>

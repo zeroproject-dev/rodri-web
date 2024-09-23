@@ -16,11 +16,11 @@ return new class () extends Migration {
             $table->string('segundo_nombre')->nullable(true);
             $table->string('paterno');
             $table->string('materno')->nullable(true);
-            $table->string('espacialidad');
+            $table->string('especialidad');
             $table->date('fecha_nacimiento');
             $table->enum('genero', ['masculino', 'femenino']);
             $table->string('numero');
-            $table->boolean('estado');
+            $table->boolean('estado')->default(true);
             $table->string('email')->unique();
             $table->string('user')->unique();
             $table->timestamp('email_verified_at')->nullable();

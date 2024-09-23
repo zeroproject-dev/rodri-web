@@ -1,27 +1,20 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DoctoresController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SesionesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('login');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-// Route::resource('pacientes', PacienteController::class)
-//     ->only('index', 'create', 'store', 'update', 'edit')
-//     ->middleware(['auth', 'verified']);
 
 Route::get('pacientes', [PacienteController::class, 'index'])
     ->name('pacientes.index')
@@ -52,5 +45,31 @@ Route::get('sesiones', [SesionesController::class, 'index'])
 Route::get('sesiones/create', [SesionesController::class, 'create'])
     ->name('sesiones.create')
     ->middleware(['auth', 'verified']);
+
+Route::post('sesiones', [SesionesController::class, 'store'])
+    ->name('sesiones.store')
+    ->middleware(['auth', 'verified']);
+
+Route::get('doctores', [DoctoresController::class, 'index'])
+    ->name('doctores.index')
+    ->middleware(['auth', 'verified']);
+
+Route::get('doctores/create', [DoctoresController::class, 'create'])
+    ->name('doctores.create')
+    ->middleware(['auth', 'verified']);
+
+Route::post('doctores', [DoctoresController::class, 'store'])
+    ->name('doctores.store')
+    ->middleware(['auth', 'verified']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// Route::resource('pacientes', PacienteController::class)
+//     ->only('index', 'create', 'store', 'update', 'edit')
+//     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

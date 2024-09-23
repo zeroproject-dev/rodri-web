@@ -19,7 +19,16 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'primer_nombre',
+        'segundo_nombre',
+        'user',
+        'paterno',
+        'materno',
+        'especialidad',
+        'fecha_nacimiento',
+        'genero',
+        'numero',
+        'estado',
         'email',
         'password',
     ];
@@ -42,7 +51,9 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
+            'fecha_nacimiento' => 'datetime',
             'email_verified_at' => 'datetime',
+            'estado' => 'boolean',
             'password' => 'hashed',
         ];
     }
@@ -50,5 +61,10 @@ class User extends Authenticatable
     public function pacientes(): HasMany
     {
         return $this->hasMany(Paciente::class);
+    }
+
+    public function sesiones(): HasMany
+    {
+        return $this->hasMany(Sesiones::class);
     }
 }
