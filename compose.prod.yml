@@ -7,7 +7,7 @@ services:
     container_name: rodri-web
     expose:
       - 8000
-    command: php artisan migrate && sail artisan db:seed -q --class=UserSeeder && php artisan octane:start --server="swoole" --host="0.0.0.0"
+    command: php artisan octane:start --server="swoole" --host="0.0.0.0"
     env_file:
       - .env.prod
     networks:
