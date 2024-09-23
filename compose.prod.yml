@@ -10,6 +10,8 @@ services:
     command: php artisan migrate && sail artisan db:seed -q --class=UserSeeder && php artisan octane:start --server="swoole" --host="0.0.0.0"
     env_file:
       - .env.prod
+    networks:
+      - nginx_proxy_default
     depends_on:
       - mysql
 
