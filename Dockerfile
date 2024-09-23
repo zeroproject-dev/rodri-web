@@ -29,5 +29,6 @@ COPY .env.prod .env
 RUN mkdir -p /app/storage/logs
 
 RUN php artisan octane:install --server="swoole"
+RUN npm install && npm run build
 
 EXPOSE 8000
