@@ -3,5 +3,33 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: rodri
+    image: rodri-web
     container_name: rodri-web
+    expose:
+      - 8000
+    command: php artisan migrate && sail artisan db:seed -q --class=UserSeeder && php artisan octane:start --server="swoole" --host="0.0.0.0"
+    env_file:
+      - .env.prod
+    depends_on:
+      - mysql
+
+  mysql:
+    image: "mysql/mysql-server:8.0"
+    container_name: rodri-db
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysuperpassword"
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: "rodri-db"
+      MYSQL_USER: "sail"
+      MYSQL_PASSWORD: "sail123"
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - "./data/mysql:/var/lib/mysql"
+    networks:
+      - nginx_proxy_default
+
+networks:
+  nginx_proxy_default:
+    external: true
