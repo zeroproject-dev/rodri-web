@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
@@ -25,9 +26,13 @@ return new class () extends Migration {
             $table->id();
             $table->foreignId('paciente_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->date(column: 'fecha')->nullable(false);
-            $table->string(column: 'tipo')->nullable(true);
-            $table->text(column: 'notas')->nullable(true);
+            $table->date('fecha')->nullable(false);
+            $table->string('tipo')->nullable(true);
+            $table->text('notas')->nullable(true);
+            $table->text('sintomas')->nullable(true);
+            $table->time('hora_inicio')->nulleable(false);
+            $table->time('hora_fin')->nullable(true);
+            $table->integer('duracion_segundos')->nullable(true);
             $table->timestamps();
         });
 

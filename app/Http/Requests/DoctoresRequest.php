@@ -37,6 +37,13 @@ class DoctoresRequest extends FormRequest
         ];
     }
 
+    protected function casts(): array
+    {
+        return [
+            'fecha_nacimiento' => 'date',
+        ];
+    }
+
     public function messages()
     {
         return [

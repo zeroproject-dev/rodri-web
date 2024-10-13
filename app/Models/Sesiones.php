@@ -18,6 +18,10 @@ class Sesiones extends Model
         'fecha',
         'tipo',
         'notas',
+        'sintomas',
+        'hora_inicio',
+        'hora_fin',
+        'duracion_segundos'
     ];
 
     public function casts(): array

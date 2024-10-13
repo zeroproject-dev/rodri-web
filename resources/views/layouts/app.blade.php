@@ -37,6 +37,10 @@
             {{ $slot }}
         </main>
     </div>
+
+    @isset($scripts)
+        {{ $scripts }}
+    @endisset
 </body>
 
 </html>

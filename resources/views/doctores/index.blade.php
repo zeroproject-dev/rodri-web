@@ -12,7 +12,7 @@
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <div class="pb-2">
                         <a href="{{ route('doctores.create') }}"
-                            class="inline-block px-4 py-2 mt-4 mr-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+                            class="inline-block px-4 py-2 mt-4 mr-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border border-transparent rounded-lg active:bg-green-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-green">
                             Nuevo doctor
                         </a>
                     </div>
@@ -77,6 +77,8 @@
                                         @endif
                                     </td>
                                     <td class="px-6 py-4">
+                                        <a href="{{ route('doctores.edit', $item) }}"
+                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
                                     </td>
                                 </tr>
                             @empty

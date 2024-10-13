@@ -38,17 +38,22 @@ Route::patch('pacientes/{paciente}/toggle', [PacienteController::class, 'toggle'
 //     ->name('pacientes.destroy')
 //     ->middleware(['auth', 'verified']);
 
-Route::get('sesiones', [SesionesController::class, 'index'])
-    ->name('sesiones.index')
-    ->middleware(['auth', 'verified']);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('sesiones', [SesionesController::class, 'index'])
+        ->name('sesiones.index');
 
-Route::get('sesiones/create', [SesionesController::class, 'create'])
-    ->name('sesiones.create')
-    ->middleware(['auth', 'verified']);
+    Route::get('sesiones/create', [SesionesController::class, 'create'])
+        ->name('sesiones.create');
 
-Route::post('sesiones', [SesionesController::class, 'store'])
-    ->name('sesiones.store')
-    ->middleware(['auth', 'verified']);
+    Route::post('sesiones', [SesionesController::class, 'store'])
+        ->name('sesiones.store');
+
+    Route::get('sesiones/{sesion}/edit', [SesionesController::class, 'edit'])
+        ->name('sesiones.edit');
+
+    Route::put('sesiones/{sesion}', [SesionesController::class, 'update'])
+        ->name('sesiones.update');
+});
 
 Route::get('doctores', [DoctoresController::class, 'index'])
     ->name('doctores.index')
@@ -60,6 +65,14 @@ Route::get('doctores/create', [DoctoresController::class, 'create'])
 
 Route::post('doctores', [DoctoresController::class, 'store'])
     ->name('doctores.store')
+    ->middleware(['auth', 'verified']);
+
+Route::get('doctores/{user}/edit', [DoctoresController::class, 'edit'])
+    ->name('doctores.edit')
+    ->middleware(['auth', 'verified']);
+
+Route::put('doctores/{user}', [DoctoresController::class, 'update'])
+    ->name('doctores.update')
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {

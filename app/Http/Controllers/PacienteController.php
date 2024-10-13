@@ -6,12 +6,20 @@ use App\Http\Requests\PacienteRequest;
 use App\Models\Paciente;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class PacienteController extends Controller
 {
     public function index(): View
     {
-        $pacientes = Paciente::with('doctores')->latest(column: "id")->paginate(perPage: 5);
+        $userId = Auth::id();
+
+        $pacientes = Paciente::all()->where('user_id', $userId);
+
+        $pacientes = Paciente::with('doctores')
+            ->where('user_id', $userId)
+            ->latest(column: "id")
+            ->paginate(perPage: 5);
 
         return view(view: 'pacientes.index', data: compact(var_name: 'pacientes'));
     }
