@@ -50,6 +50,8 @@
     @csrf
     @method('PUT')
 
+    <p id="form_part_2_id">  </p>
+
     <div class="mb-6">
         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notas</label>
         <textarea id="message" rows="4" name="notas"
@@ -111,7 +113,7 @@
     </div>
 
     <div class="mb-6">
-        <label for="sintomas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notas</label>
+        <label for="sintomas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sintomas</label>
         <textarea id="sintomas" rows="4" name="sintomas" readonly
             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
             placeholder=""></textarea>
@@ -162,6 +164,7 @@
 
                     if (data.session_id) {
                         document.getElementById('form_part_2').action = `/sesiones/${data.session_id}`;
+                        document.getElementById('form_part_2_id').textContent = `ID de la sesión: ${data.session_id}`;
                         document.getElementById('form_part_2').style.display = 'block';
                         formPart1.style.display = 'none';
                         startTimer();

@@ -40,4 +40,9 @@ class Sesiones extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function estadisticas()
+    {
+        return $this->hasMany(Estadistica::class, 'sesion_id');
+    }
 }

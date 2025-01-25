@@ -23,7 +23,7 @@
                     .paciente.paterno + ' ' + registro.paciente.materno + '<br />';
                 body += '<b>Fecha:</b> ' + registro.fecha + '<br />';
                 body += '<b>Tiempo:</b> ' + time + '<br />';
-                body += '<b>Notas:</b> ' + registro.notas ?? '' + '<br />';
+                body += '<b>Notas:</b> ' + (registro.notas ?? '') + '<br />';
                 body += '<b>Sintomas:</b> <br />' + (registro.sintomas ?? '').replace(/\n/g, '<br />') ?? '' + '<br />';
 
                 document.getElementById('modal-body').innerHTML = body;

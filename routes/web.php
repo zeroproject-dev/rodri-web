@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\DoctoresController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SesionesController;
+use App\Http\Controllers\EstadisticasController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,6 +17,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/estadisticas', [EstadisticasController::class, 'index'])
+    ->name('estadisticas.index');
+Route::post('/estadisticas', [EstadisticasController::class, 'storeAPI'])
+    ->name('estadisticas.storeAPI');
 
 Route::get('pacientes', [PacienteController::class, 'index'])
     ->name('pacientes.index')
