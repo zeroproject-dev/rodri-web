@@ -5,13 +5,26 @@
         </h2>
     </x-slot>
 
+    <x-slot name="styles">
+        <style>
+            #generalTimeScenes {
+                width: 600px;
+            }
+
+            @media print {
+                #generalTimeScenes {
+                    width: 600px;
+                }
+            }
+        </style>
+    </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <div class="">
-                        <div style="width: 800px; margin: auto;">
+                        <div style="margin: auto;" id="generalTimeScenes">
                             <strong>Tiempo de uso de las escenas</strong>
                             <canvas id="totalTimeScenes"></canvas>
                         </div>
@@ -26,21 +39,22 @@
                     </select>
 
                     <div id="paciente-charts" class="hidden">
-                        <div class="gap-2 flex justify-evenly w-full">
-                            <div style="width: 500px; margin: auto;display: inline-block;">
+                        <div class="">
+                            <div style="width: 600px; margin: auto;">
                                 <strong>Tiempo de sesiones</strong>
                                 <canvas id="timeSesion"></canvas>
                             </div>
 
-                            <div style="width: 500px; margin: auto;display: inline-block;">
+                            <div style="width: 400px; margin: 30px auto;">
                                 <strong>Tiempo de uso de las escenas</strong>
                                 <canvas id="timeSesionScene"></canvas>
                             </div>
                         </div>
                     </div>
 
-                    <!-- <pre>{{ json_encode(json_decode($estadisticas), JSON_PRETTY_PRINT) }}</pre> -->
-                    <!-- <pre>{{ json_encode(json_decode($pacientes), JSON_PRETTY_PRINT) }}</pre> -->
+                    <x-primary-button id="imprimir" class="ms-4 print:hidden">
+                        <span class="print:hidden">Imprimir</span>
+                    </x-primary-button>
                 </div>
             </div>
         </div>
@@ -58,7 +72,11 @@
             divCharts.classList.toggle('hidden', flag);
         }
 
-        console.log(pacientes);
+        document.getElementById('imprimir').addEventListener('click', () => {
+            setTimeout(() => {
+                window.print();
+            }, 100);
+        });
 
         function initTotalTimeInScenes() {
             function getMinutesFromTime(estadisticas, initialObj) {
@@ -106,7 +124,7 @@
                     labels,
                     datasets: [
                         {
-                            label: 'Tiempo total de sesion por día.',
+                            label: 'Tiempo total de sesion por día. (Minutos)',
                             data: values,
                         }
                     ],
@@ -129,7 +147,7 @@
             const ctx = canvas.getContext('2d');
 
             const chart = new Chart(ctx, {
-                type: 'bar',
+                type: 'pie',
                 data: {
                     labels,
                     datasets: [
