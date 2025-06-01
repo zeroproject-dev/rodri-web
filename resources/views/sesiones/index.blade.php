@@ -8,7 +8,7 @@
 
     <div class="py-12">
         <script>
-            function openModal(registro) {
+            function openModal(registro, dateFormatted) {
                 document.getElementById('modal-title').innerText = registro.tipo;
 
                 const duration = registro.duracion_segundos;
@@ -17,13 +17,11 @@
                 const seconds = duration % 60;
                 const time = hours + ':' + minutes + ':' + seconds;
 
-                const date = new Date(registro.fecha);
-
                 let body = '';
                 body += '<b>Paciente:</b> ' + registro.paciente.primer_nombre + ' ' + registro.paciente.segundo_nombre + ' ' +
                     registro
                     .paciente.paterno + ' ' + registro.paciente.materno + '<br />';
-                body += '<b>Fecha:</b> ' + date.getDate() + '/' + date.getMonth() + '/' + date.getYear() + '<br />';
+                body += '<b>Fecha:</b> ' + dateFormatted + '<br />';
                 body += '<b>Tiempo:</b> ' + time + '<br />';
                 body += '<b>Notas:</b> ' + (registro.notas ?? '') + '<br />';
                 body += '<b>Sintomas:</b> <br />' + (registro.sintomas ?? '').replace(/\n/g, '<br />') ?? '' + '<br />';
@@ -84,7 +82,8 @@
                                         {{ $item->tipo }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <button onclick="openModal({{ $item }})"
+                                        <button
+                                            onclick="openModal({{ $item }}, '{{ $item->fecha->format('d/m/Y') }}')"
                                             class="bg-green-500 text-white px-4 py-2 rounded">Ver</button>
                                     </td>
                                 </tr>
