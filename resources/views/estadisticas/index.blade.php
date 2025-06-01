@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Estadisticas') }}
         </h2>
     </x-slot>
@@ -21,7 +21,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <div class="">
                         <div style="margin: auto;" id="generalTimeScenes">
@@ -31,10 +31,11 @@
                     </div>
                     <select class="ml-2" id="pacientes" onchange="onSelectPaciente(this)">
                         <option value="">-- Selecciona un paciente --</option>
-                        @foreach($pacientes as $paciente)
-                        <option value="{{ $paciente->id }}">
-                            {{ $paciente->primer_nombre }} {{ $paciente->segundo_nombre }} {{ $paciente->paterno }} {{ $paciente->materno }}
-                        </option>
+                        @foreach ($pacientes as $paciente)
+                            <option value="{{ $paciente->id }}">
+                                {{ $paciente->primer_nombre }} {{ $paciente->segundo_nombre }} {{ $paciente->paterno }}
+                                {{ $paciente->materno }}
+                            </option>
                         @endforeach
                     </select>
 
@@ -60,8 +61,12 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" integrity="sha512-ZwR1/gSZM3ai6vCdI+LVF1zSq/5HznD3ZSTk7kajkaj4D292NLuduDCO1c/NT8Id+jE58KYLKT7hXnbtryGmMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.13/dayjs.min.js" integrity="sha512-FwNWaxyfy2XlEINoSnZh1JQ5TRRtGow0D6XcmAWmYCRgvqOUTnzCxPc9uF35u5ZEpirk1uhlPVA19tflhvnW1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"
+        integrity="sha512-ZwR1/gSZM3ai6vCdI+LVF1zSq/5HznD3ZSTk7kajkaj4D292NLuduDCO1c/NT8Id+jE58KYLKT7hXnbtryGmMg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.13/dayjs.min.js"
+        integrity="sha512-FwNWaxyfy2XlEINoSnZh1JQ5TRRtGow0D6XcmAWmYCRgvqOUTnzCxPc9uF35u5ZEpirk1uhlPVA19tflhvnW1g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         const data = JSON.parse(@json($estadisticas));
@@ -82,7 +87,10 @@
             function getMinutesFromTime(estadisticas, initialObj) {
                 return estadisticas.reduce((acc, item) => {
                     if (item.nombre !== 'TIME') return acc;
-                    const { time, scene } = JSON.parse(item.valor);
+                    const {
+                        time,
+                        scene
+                    } = JSON.parse(item.valor);
                     if (acc[scene]) acc[scene] += time / 60;
                     else acc[scene] = time / 60;
                     return acc;
@@ -99,12 +107,10 @@
                 type: 'bar',
                 data: {
                     labels: Object.keys(timeGrouped),
-                    datasets: [
-                        {
-                            label: 'Minutos dentro de una escena',
-                            data: Object.values(timeGrouped),
-                        }
-                    ],
+                    datasets: [{
+                        label: 'Minutos dentro de una escena',
+                        data: Object.values(timeGrouped),
+                    }],
                 }
             });
         }
@@ -122,12 +128,10 @@
                 type: 'line',
                 data: {
                     labels,
-                    datasets: [
-                        {
-                            label: 'Tiempo total de sesion por día. (Minutos)',
-                            data: values,
-                        }
-                    ],
+                    datasets: [{
+                        label: 'Tiempo total de sesion por día. (Minutos)',
+                        data: values,
+                    }],
                 },
                 options: {
                     scales: {
@@ -150,12 +154,10 @@
                 type: 'pie',
                 data: {
                     labels,
-                    datasets: [
-                        {
-                            label: 'Tiempo de escenas.',
-                            data: values,
-                        }
-                    ],
+                    datasets: [{
+                        label: 'Tiempo de escenas.',
+                        data: values,
+                    }],
                 }
             });
 
@@ -166,7 +168,7 @@
             if (!pacienteId) return togglePacienteVisivilityCharts(true);
             togglePacienteVisivilityCharts(false);
 
-            const sesions = data.filter((sesion)=>sesion.paciente_id == pacienteId);
+            const sesions = data.filter((sesion) => sesion.paciente_id == pacienteId);
 
             const daysSesionTime = {};
             const scenesTime = {};
@@ -185,7 +187,10 @@
 
                 sesion.estadisticas.forEach((estadistica) => {
                     if (estadistica.nombre !== 'TIME') return;
-                    const { time, scene } = JSON.parse(estadistica.valor);
+                    const {
+                        time,
+                        scene
+                    } = JSON.parse(estadistica.valor);
                     scenesTime[scene] = scenesTime[scene] || 0;
                     scenesTime[scene] += time;
                 });
@@ -195,7 +200,6 @@
 
             showScenesTime(scenesTime);
         }
-
     </script>
 
 </x-app-layout>

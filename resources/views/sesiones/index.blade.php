@@ -17,11 +17,13 @@
                 const seconds = duration % 60;
                 const time = hours + ':' + minutes + ':' + seconds;
 
+                const date = new Date(registro.fecha);
+
                 let body = '';
                 body += '<b>Paciente:</b> ' + registro.paciente.primer_nombre + ' ' + registro.paciente.segundo_nombre + ' ' +
                     registro
                     .paciente.paterno + ' ' + registro.paciente.materno + '<br />';
-                body += '<b>Fecha:</b> ' + registro.fecha + '<br />';
+                body += '<b>Fecha:</b> ' + date.getDate() + '/' + date.getMonth() + '/' + date.getYear() + '<br />';
                 body += '<b>Tiempo:</b> ' + time + '<br />';
                 body += '<b>Notas:</b> ' + (registro.notas ?? '') + '<br />';
                 body += '<b>Sintomas:</b> <br />' + (registro.sintomas ?? '').replace(/\n/g, '<br />') ?? '' + '<br />';
