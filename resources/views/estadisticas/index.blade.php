@@ -46,6 +46,9 @@
                                 <canvas id="timeSesion"></canvas>
                             </div>
 
+                            <br />
+                            <br />
+
                             <div style="width: 400px; margin: 30px auto;">
                                 <strong>Tiempo de uso de las escenas</strong>
                                 <canvas id="timeSesionScene"></canvas>
